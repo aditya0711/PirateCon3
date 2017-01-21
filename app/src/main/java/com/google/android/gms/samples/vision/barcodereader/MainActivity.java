@@ -16,17 +16,19 @@
 
 package com.google.android.gms.samples.vision.barcodereader;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Activity;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
-import utils.RESTReq;
+
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
+
+import utils.RESTReq;
 
 
 /**
@@ -50,7 +52,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        statusMessage = (TextView)findViewById(R.id.status_message);
+        statusMessage = (TextView)findViewById(R.id.textView);
         //barcodeValue = (TextView)findViewById(R.id.barcode_value2);
         barcodeValueEdit = (EditText)findViewById(R.id.editText3);
 
