@@ -29,6 +29,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -66,6 +67,9 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     private View mProgressView;
     private View mLoginFormView;
 
+    private String[] role;
+    private String[] Username;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +98,14 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 startActivity(I);
             }
         });
+
+        role = new String[]{"Producer" , "Dealer" ,"Consumer"};
+
+        Spinner s = (Spinner) findViewById(R.id.role);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, role);
+        adapter.setDropDownViewResource(R.layout.spinner_layout);
+        s.setAdapter(adapter);
 //
 //        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
 //        mEmailSignInButton.setOnClickListener(new OnClickListener() {
