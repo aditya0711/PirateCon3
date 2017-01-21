@@ -22,10 +22,12 @@ import android.app.Activity;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.TextView;
-
+import utils.RESTReq;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
+
 
 /**
  * Main activity demonstrating how to pass extra parameters to an activity that
@@ -38,6 +40,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private CompoundButton useFlash;
     private TextView statusMessage;
     private TextView barcodeValue;
+    private EditText barcodeValueEdit;
 
     private static final int RC_BARCODE_CAPTURE = 9001;
     private static final String TAG = "BarcodeMain";
@@ -48,7 +51,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
 
         statusMessage = (TextView)findViewById(R.id.status_message);
-        barcodeValue = (TextView)findViewById(R.id.barcode_value);
+        //barcodeValue = (TextView)findViewById(R.id.barcode_value2);
+        barcodeValueEdit = (EditText)findViewById(R.id.editText3);
 
         autoFocus = (CompoundButton) findViewById(R.id.auto_focus);
         useFlash = (CompoundButton) findViewById(R.id.use_flash);
@@ -63,11 +67,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
      */
     @Override
     public void onClick(View v) {
+
+        RESTReq request;
+        //request.get_request()
+
         if (v.getId() == R.id.read_barcode) {
             // launch barcode activity.
             Intent intent = new Intent(this, BarcodeCaptureActivity.class);
-            intent.putExtra(BarcodeCaptureActivity.AutoFocus, autoFocus.isChecked());
-            intent.putExtra(BarcodeCaptureActivity.UseFlash, useFlash.isChecked());
+//            intent.putExtra(BarcodeCaptureActivity.AutoFocus, autoFocus.isChecked());
+//            intent.putExtra(BarcodeCaptureActivity.UseFlash, useFlash.isChecked());
 
             startActivityForResult(intent, RC_BARCODE_CAPTURE);
         }
@@ -103,7 +111,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 if (data != null) {
                     Barcode barcode = data.getParcelableExtra(BarcodeCaptureActivity.BarcodeObject);
                     statusMessage.setText(R.string.barcode_success);
-                    barcodeValue.setText(barcode.displayValue);
+                    //barcodeValue.setText(barcode.displayValue);
+                    barcodeValueEdit.setText(barcode.displayValue);
                     Log.d(TAG, "Barcode read: " + barcode.displayValue);
                 } else {
                     statusMessage.setText(R.string.barcode_failure);

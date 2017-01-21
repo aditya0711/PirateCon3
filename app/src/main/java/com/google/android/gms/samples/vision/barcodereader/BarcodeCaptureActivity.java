@@ -75,7 +75,7 @@ public final class BarcodeCaptureActivity extends AppCompatActivity {
     private CameraSourcePreview mPreview;
     private GraphicOverlay<BarcodeGraphic> mGraphicOverlay;
 
-    // helper objects for detecting taps and pinches.
+    // helper objects for detectig taps and pinches.
     private ScaleGestureDetector scaleGestureDetector;
     private GestureDetector gestureDetector;
 
@@ -98,7 +98,7 @@ public final class BarcodeCaptureActivity extends AppCompatActivity {
         // permission is not granted yet, request permission.
         int rc = ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
         if (rc == PackageManager.PERMISSION_GRANTED) {
-            createCameraSource(autoFocus, useFlash);
+            createCameraSource(true, false);
         } else {
             requestCameraPermission();
         }
@@ -213,6 +213,7 @@ public final class BarcodeCaptureActivity extends AppCompatActivity {
 
         mCameraSource = builder
                 .setFlashMode(useFlash ? Camera.Parameters.FLASH_MODE_TORCH : null)
+                //.setFlashMode(false)
                 .build();
     }
 
@@ -279,7 +280,8 @@ public final class BarcodeCaptureActivity extends AppCompatActivity {
             // we have permission, so create the camerasource
             boolean autoFocus = getIntent().getBooleanExtra(AutoFocus,false);
             boolean useFlash = getIntent().getBooleanExtra(UseFlash, false);
-            createCameraSource(autoFocus, useFlash);
+
+            createCameraSource(true, false);
             return;
         }
 
