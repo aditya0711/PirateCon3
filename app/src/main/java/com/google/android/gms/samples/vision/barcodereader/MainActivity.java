@@ -104,6 +104,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         else if(v.getId()== R.id.search_product){
             //request.get();
 
+
         }else if(v.getId()== R.id.change_owner){
             //request.post();
         }

@@ -2,6 +2,8 @@ package utils;
 
 import android.util.Log;
 
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 import okhttp3.MediaType;
@@ -18,19 +20,18 @@ import okhttp3.Response;
 
 public class RESTReq
 {
-    //singleton
-    private static RESTReq request = new RESTReq();
-    private RESTReq (){};
     private String stratoURL = "http://bayar3.eastus.cloudapp.azure.com/strato-api" ;
-    private String blocServerUrl = "http://bayar3.eastus.cloudapp.azure.com/bloc";
+    private String blocServerUrl = "http://bayar3.eastus.cloudapp.azure.com/bloc/";
 
+    private String contract_src = "contract Tracker{address public owner;uint public timestamp;uint public numberOfstates;uint public barcode;data[] public dataList;struct data{string name;uint timestamp;string note;}function TrackerCreate(uint barcode){owner=msg.sender;timestamp=now;numberOfstates=0;barcode=barcode;}function changeOwner(address retailer_account){owner=retailer_account;}function changeState(string note,string name){if(msg.sender==owner){dataList.push(data(name,now,note));numberOfstates=numberOfstates+1;}}}";
+    private String create_user = "";
 
     OkHttpClient client = new OkHttpClient();
 
-    public String get_request(String url) throws IOException {
+    public  String get_request(String url) throws IOException {
 
         Request request = new Request.Builder()
-                .url(url)
+                .url(blocServerUrl + url)
                 .build();
 
         Log.d("GET REQUEST: " , request.body().toString());
@@ -40,13 +41,17 @@ public class RESTReq
         return response.body().string();
     }
 
-    public static final MediaType JSON
+    public MediaType JSON
             = MediaType.parse("application/json; charset=utf-8");
 
-    public String post_request(String url, String json) throws IOException {
+    public  String post_request(String url, String json) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+
+
         RequestBody body = RequestBody.create(JSON, json);
+
         Request request = new Request.Builder()
-                .url(url)
+                .url(blocServerUrl + url )
                 .post(body)
                 .build();
         Log.d("POST REQUEST: " , request.body().toString());

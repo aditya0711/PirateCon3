@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
@@ -21,6 +22,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,8 +34,18 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -77,6 +89,8 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         // Set up the login form.
         //mEmailView = (EditText) findViewById(R.id.password);
 //        populateAutoComplete();
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 //
 //        mPasswordView = (EditText) findViewById(R.id.password);
             skip = (TextView) findViewById(R.id.skip);
@@ -99,13 +113,40 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             }
         });
 
-        role = new String[]{"Producer" , "Dealer" ,"Consumer"};
+        role = new String[]{"producer" , "dealer" ,"consumer"};
 
         Spinner s = (Spinner) findViewById(R.id.role);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, role);
         adapter.setDropDownViewResource(R.layout.spinner_layout);
         s.setAdapter(adapter);
+
+
+        Spinner user = (Spinner) findViewById(R.id.username);
+        ArrayAdapter<String> adapter_user = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, role);
+        adapter.setDropDownViewResource(R.layout.spinner_layout);
+
+        adapter.setDropDownViewResource(R.layout.spinner_layout);
+        s.setAdapter(adapter);
+
+        OkHttpClient client = new OkHttpClient();
+        client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://13.92.142.106/bloc/users/consumers")
+                .get()
+                .addHeader("cache-control", "no-cache")
+                .addHeader("postman-token", "c9614316-8e0e-3ae4-52f0-bcae19f76794")
+                .build();
+
+        try {
+            Response response = client.newCall(request).execute();
+            String[] array = response.body().string().split(",");
+            Log.d("Array", Arrays.toString(array));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 //
 //        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
 //        mEmailSignInButton.setOnClickListener(new OnClickListener() {
