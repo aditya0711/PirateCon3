@@ -10,21 +10,46 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.google.android.gms.samples.vision.barcodereader.Addproducts">
 
-    <Button
-        android:text="Add Product"
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_below="@+id/scan_barcode"
         android:layout_centerHorizontal="true"
-        android:id="@+id/addProduct" />
+        android:layout_marginTop="20dp"
+        android:id="@+id/barcode_field"
+        android:hint="Barcode"
+        android:textAlignment="center" />
 
     <Button
-        android:text="Assign Dealer"
+        android:text="Add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:id="@+id/button4"
-        android:layout_below="@+id/addProduct"
-        android:layout_alignLeft="@+id/addProduct"
-        android:layout_alignStart="@+id/addProduct" />
+        android:layout_below="@+id/product_name_field"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="54dp"
+        android:id="@+id/add_product" />
+
+    <Button
+        android:text="Scan Barcode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scan_barcode"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_marginTop="31dp"
+        android:id="@+id/product_name_field"
+        android:hint="Product Name"
+        android:textAlignment="center"
+        android:layout_below="@+id/barcode_field"
+        android:layout_alignLeft="@+id/barcode_field"
+        android:layout_alignStart="@+id/barcode_field" />
+
 </RelativeLayout>

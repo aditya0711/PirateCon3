@@ -27,4 +27,9 @@
         completions."
     </string>
     <string name="title_activity_addproducts">Addproducts</string>
+    <string-array name="user">
+        <item>Manufactures</item>
+        <item>Dealer</item>
+        <item>Customer</item>
+    </string-array>
 </resources>

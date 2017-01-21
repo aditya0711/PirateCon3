@@ -11,6 +11,7 @@
     tools:context="com.google.android.gms.samples.vision.barcodereader.LoginActivity">
 
     <!-- Login progress -->
+
     <ProgressBar
         android:id="@+id/login_progress"
         style="?android:attr/progressBarStyleLarge"
@@ -30,14 +31,19 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <AutoCompleteTextView
-                android:id="@+id/email"
+            <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/prompt_username"
-                android:inputType="text"
-                android:maxLines="1"
-                android:singleLine="true" />
+                android:id="@+id/spinner2"
+                android:padding="10dp"
+                android:minHeight="56dp" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinner"
+                android:padding="10dp"
+                android:minHeight="60dp" />
 
             <EditText
                 android:id="@+id/password"
@@ -58,7 +64,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/action_sign_in"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:height="60dp" />
 
             <TextView
                 android:text="Skip"
@@ -67,8 +74,11 @@
                 android:id="@+id/skip"
                 android:textAlignment="center"
                 android:textSize="18sp"
-                android:textStyle="normal|bold" />
+                android:textStyle="normal|bold"
+                android:padding="10dp"
+                android:layout_marginTop="5dp" />
 
         </LinearLayout>
     </ScrollView>
+
 </LinearLayout>

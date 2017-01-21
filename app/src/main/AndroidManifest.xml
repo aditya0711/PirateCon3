@@ -29,7 +29,7 @@
 
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_main"></activity>
+            android:label="@string/title_activity_main" />
         <activity
             android:name=".BarcodeCaptureActivity"
             android:label="Read Barcode" />
@@ -44,7 +44,8 @@
         </activity>
         <activity
             android:name=".Addproducts"
-            android:label="@string/title_activity_addproducts"></activity>
+            android:label="@string/title_activity_addproducts" />
+        <activity android:name=".ProductDetails"></activity>
     </application>
 
 </manifest>
