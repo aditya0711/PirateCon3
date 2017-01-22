@@ -28,8 +28,21 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 
 import utils.RESTReq;
 
@@ -102,13 +115,93 @@ public class MainActivity extends Activity implements View.OnClickListener {
             startActivityForResult(intent, RC_BARCODE_CAPTURE);
         }
         else if(v.getId()== R.id.search_product){
-            //request.get();
+            final JSONObject jsonBody = new JSONObject();
+            final JSONObject jsonin = new JSONObject();
+            try {
+                jsonin.put("barcode" , barcodeValueEdit.getText().toString().trim());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                jsonBody.put("password", "123456");
+                jsonBody.put("method","getAddress");
+                jsonBody.put("args", jsonin);
+                jsonBody.put("value", 0);
 
+                Log.d("BODY",jsonBody.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            RequestQueue queue = Volley.newRequestQueue(this);
+            String url ="http://bayar3.eastus.cloudapp.azure.com/bloc/users/admin/4f9f51d46db7745d88df157ebb1faec904997264/contract/superContract/d59800cb1752fcc2741494da74268791463f89b3/call";
+            Log.d("URL" ,  url);
+            // Request a string response from the provided URL.
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            //product_name.setText(response.toString());
+                            Log.d("Responseeeeeeeeeee", response);
+                            String contract_address = response.toString().trim().substring(22);
+                            Log.d("Res con id", contract_address);
+                            mapAddress(contract_address);
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            })
+            {
+                @Override
+                public String getBodyContentType() {
+                    return "application/json; charset=utf-8";
+                }
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    try {
+                        return jsonBody.toString().getBytes("utf-8");
+                    }catch (UnsupportedEncodingException uee) {
+                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", jsonBody.toString(), "utf-8");
+                        return null;
+                    }
+                }};
+            queue.add(stringRequest);
 
         }else if(v.getId()== R.id.change_owner){
             //request.post();
         }
     }
+    public void mapAddress(String contractID){
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        //String url ="http://bayar3.eastus.cloudapp.azure.com/bloc/contracts/superContract/d59800cb1752fcc2741494da74268791463f89b3/state";
+        String url ="http://bayar3.eastus.cloudapp.azure.com/bloc/contracts/Tracker/"+contractID+ "/state";
+        Log.d("URL" ,  url);
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //product_name.setText(response.toString());
+                        Log.d("ResList", response);
+                        try {
+                            JSONObject obj = new JSONObject(response);
+                            owner_history.setText(obj.get("dataList").toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        });
+        queue.add(stringRequest);
+
+    }
+
     /**
      * Called when an activity you launched exits, giving you the requestCode
      * you started it with, the resultCode it returned, and any additional
@@ -141,7 +234,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     barcodeValueEdit.setText(barcode.displayValue);
                     Log.d(TAG, "Barcode read: " + barcode.displayValue);
                 } else {
-                    statusMessage.setText(R.string.barcode_failure);
+                    //statusMessage.setText(R.string.barcode_failure);
                     Log.d(TAG, "No barcode captured, intent data is null");
                 }
             } else {

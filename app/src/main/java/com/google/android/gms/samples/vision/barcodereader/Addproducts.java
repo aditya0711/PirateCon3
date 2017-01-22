@@ -93,6 +93,7 @@ public class Addproducts extends Activity implements View.OnClickListener{
                         @Override
                         public void onResponse(String response) {
                             product_name.setText(response.toString());
+                            mapAddress();
                         }
                     }, new Response.ErrorListener() {
                 @Override
@@ -275,8 +276,60 @@ public class Addproducts extends Activity implements View.OnClickListener{
                     }
                 }};
             queue.add(stringRequest);
-
         }
+    }
+    public void mapAddress(){
+        final JSONObject jsonBody = new JSONObject();
+        final JSONObject jsonin = new JSONObject();
+        try {
+            jsonin.put("addr" , product_name.getText());
+            jsonin.put("barcode" , product_barcode.getText());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            jsonBody.put("password", "123456");
+            jsonBody.put("method","mapAddress");
+            jsonBody.put("args", jsonin);
+            jsonBody.put("value", 0);
+
+            Log.d("BODY",jsonBody.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url ="http://bayar3.eastus.cloudapp.azure.com/bloc/users/admin/4f9f51d46db7745d88df157ebb1faec904997264/contract/superContract/d59800cb1752fcc2741494da74268791463f89b3/call";
+        Log.d("URL" ,  url);
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //product_name.setText(response.toString());
+                        Log.d("Res", response);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        })
+        {
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                try {
+                    return jsonBody.toString().getBytes("utf-8");
+                }catch (UnsupportedEncodingException uee) {
+                    VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", jsonBody.toString(), "utf-8");
+                    return null;
+                }
+            }};
+        queue.add(stringRequest);
+
     }
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == RC_BARCODE_CAPTURE) {

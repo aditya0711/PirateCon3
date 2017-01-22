@@ -22,19 +22,6 @@
         android:hint="Barcode"
         android:textAlignment="center" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_marginTop="31dp"
-        android:id="@+id/product_name_field"
-        android:hint="Product Name"
-        android:textAlignment="center"
-        android:layout_below="@+id/barcode_field"
-        android:layout_alignLeft="@+id/barcode_field"
-        android:layout_alignStart="@+id/barcode_field" />
-
     <Button
         android:text="Scan Barcode"
         android:layout_width="wrap_content"
@@ -52,16 +39,6 @@
         android:layout_below="@+id/product_name_field"
         android:layout_toLeftOf="@+id/create"
         android:layout_toStartOf="@+id/create" />
-
-    <Button
-        android:text="Assign Barcode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/create"
-        android:layout_alignBaseline="@+id/add_product"
-        android:layout_alignBottom="@+id/add_product"
-        android:layout_toLeftOf="@+id/chown"
-        android:layout_toStartOf="@+id/chown" />
 
     <Button
         android:text="CHANGE OWNER"
@@ -83,5 +60,31 @@
         android:layout_alignBottom="@+id/create"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <Button
+        android:text="Assign Barcode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/create"
+        android:layout_alignBaseline="@+id/add_product"
+        android:layout_alignBottom="@+id/add_product"
+        android:layout_toLeftOf="@+id/chown"
+        android:layout_toStartOf="@+id/chown" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_marginTop="32dp"
+        android:id="@+id/product_name_field"
+        android:hint="Product Id"
+        android:textAlignment="center"
+        android:layout_below="@+id/barcode_field"
+        android:layout_alignLeft="@+id/barcode_field"
+        android:layout_alignStart="@+id/barcode_field"
+        android:editable="false"
+        android:allowUndo="false"
+        android:enabled="false" />
 
 </RelativeLayout>
