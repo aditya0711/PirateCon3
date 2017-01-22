@@ -15,29 +15,12 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:layout_below="@+id/scan_barcode"
+        android:layout_below="@+id/scan_barcode2"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:id="@+id/barcode_field"
         android:hint="Barcode"
         android:textAlignment="center" />
-
-    <Button
-        android:text="Add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/product_name_field"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="54dp"
-        android:id="@+id/add_product" />
-
-    <Button
-        android:text="Scan Barcode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/scan_barcode"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -51,5 +34,31 @@
         android:layout_below="@+id/barcode_field"
         android:layout_alignLeft="@+id/barcode_field"
         android:layout_alignStart="@+id/barcode_field" />
+
+    <Button
+        android:text="Scan Barcode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scan_barcode2"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Create"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/add_product"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/create" />
+
+    <Button
+        android:text="Add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="55dp"
+        android:id="@+id/add_product"
+        android:layout_below="@+id/product_name_field"
+        android:layout_alignLeft="@+id/create"
+        android:layout_alignStart="@+id/create" />
 
 </RelativeLayout>
