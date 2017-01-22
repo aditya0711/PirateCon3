@@ -6,8 +6,11 @@ import android.app.Activity;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 
 import com.android.volley.AuthFailureError;
@@ -37,11 +40,20 @@ public class Addproducts extends Activity implements View.OnClickListener{
     private Button create;
     private Button chown;
     private Button change_state;
+    private Spinner s;
 
     private static final int RC_BARCODE_CAPTURE = 9001;
     private static final String TAG = "BarcodeMain";
     private static final String CACHE_FILE =  "cache.tmp";
     private String contract_src = "contract Tracker{address public owner;uint public timestamp;uint public numberOfstates;uint public barcode;data[] public dataList;struct data{string name;uint timestamp;string note;}function TrackerCreate(uint barcode){owner=msg.sender;timestamp=now;numberOfstates=0;barcode=barcode;}function changeOwner(address retailer_account){owner=retailer_account;}function changeState(string note,string name){if(msg.sender==owner){dataList.push(data(name,now,note));numberOfstates=numberOfstates+1;}}}";
+
+    String[] users = new String[]{"00f593de6b0f6db6ffe7d1e76d6aeb66cdd168d5" ,
+            "3f035642729ca7ae2a942a6fc61a53950bb11545" ,
+            "8a69134da4570d4af0ba768def30b2aa9d7ec12d" ,
+            "c3fa7dea84e000a4666dfdf32758042fe7bfdc2f" ,
+            "817f1e37116546f3749c75887797400e086fc596"};
+    String changed_address ;
+    int i=0;
 
 
 
@@ -67,6 +79,27 @@ public class Addproducts extends Activity implements View.OnClickListener{
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
+
+        s = (Spinner) findViewById(R.id.spinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, users);
+        adapter.setDropDownViewResource(R.layout.spinner_layout);
+        s.setAdapter(adapter);
+        s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                changed_address = users[i];
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                changed_address = users[0];
+            }
+
+
+        });
 
     }
 
@@ -126,8 +159,9 @@ public class Addproducts extends Activity implements View.OnClickListener{
         else if(view.getId()== R.id.changestate){
             final JSONObject jsonBody = new JSONObject();
             final JSONObject jsonin = new JSONObject();
+
             try {
-                jsonin.put("retailer_account" , "8a69134da4570d4af0ba768def30b2aa9d7ec12d");
+                jsonin.put("retailer_account" , changed_address);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -142,7 +176,7 @@ public class Addproducts extends Activity implements View.OnClickListener{
                 e.printStackTrace();
             }
             RequestQueue queue = Volley.newRequestQueue(this);
-            String url ="http://bayar3.eastus.cloudapp.azure.com/bloc/users/manu/33f30f533c88b7cf871fc3aceeb52385410e3585/contract/Tracker/"+ product_name.getText()+ "/call";
+            String url ="http://bayar3.eastus.cloudapp.azure.com/bloc/users/prod/5724380e829d68736da75a8eadd060e93f35daf3/contract/Tracker/"+ product_name.getText()+ "/call";
             Log.d("URL" ,  url);
             // Request a string response from the provided URL.
             StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
@@ -193,7 +227,7 @@ public class Addproducts extends Activity implements View.OnClickListener{
                 e.printStackTrace();
             }
             RequestQueue queue = Volley.newRequestQueue(this);
-            String url ="http://bayar3.eastus.cloudapp.azure.com/bloc/users/manu/33f30f533c88b7cf871fc3aceeb52385410e3585/contract/Tracker/"+ product_name.getText()+ "/call";
+            String url ="http://bayar3.eastus.cloudapp.azure.com/bloc/users/prod/5724380e829d68736da75a8eadd060e93f35daf3/contract/Tracker/"+ product_name.getText()+ "/call";
             Log.d("URL" ,  url);
             // Request a string response from the provided URL.
             StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
@@ -226,11 +260,12 @@ public class Addproducts extends Activity implements View.OnClickListener{
             queue.add(stringRequest);
         }
         else if(view.getId() == R.id.chown){
+            i +=1;
             final JSONObject jsonBody = new JSONObject();
             final JSONObject jsonin = new JSONObject();
             try {
                 jsonin.put("note" , "recd");
-                jsonin.put("name" , "consumer");
+                jsonin.put("name" , "retailer number" + i);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -245,7 +280,7 @@ public class Addproducts extends Activity implements View.OnClickListener{
                 e.printStackTrace();
             }
             RequestQueue queue = Volley.newRequestQueue(this);
-            String url ="http://bayar3.eastus.cloudapp.azure.com/bloc/users/manu/33f30f533c88b7cf871fc3aceeb52385410e3585/contract/Tracker/"+ product_name.getText()+ "/call";
+            String url ="http://bayar3.eastus.cloudapp.azure.com/bloc/users/prod/5724380e829d68736da75a8eadd060e93f35daf3/contract/Tracker/"+ product_name.getText()+ "/call";
             Log.d("URL" ,  url);
             // Request a string response from the provided URL.
             StringRequest stringRequest = new StringRequest(Request.Method.POST, url,

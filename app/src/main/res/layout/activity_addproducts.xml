@@ -87,4 +87,12 @@
         android:allowUndo="false"
         android:enabled="false" />
 
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/add_product"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="29dp"
+        android:id="@+id/spinner" />
+
 </RelativeLayout>
