@@ -47,18 +47,41 @@
         android:text="Create"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/add_product"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/create" />
-
-    <Button
-        android:text="Add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="59dp"
         android:id="@+id/add_product"
         android:layout_below="@+id/product_name_field"
-        android:layout_alignLeft="@+id/create"
-        android:layout_alignStart="@+id/create" />
+        android:layout_toLeftOf="@+id/create"
+        android:layout_toStartOf="@+id/create" />
+
+    <Button
+        android:text="Assign Barcode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/create"
+        android:layout_alignBaseline="@+id/add_product"
+        android:layout_alignBottom="@+id/add_product"
+        android:layout_toLeftOf="@+id/chown"
+        android:layout_toStartOf="@+id/chown" />
+
+    <Button
+        android:text="CHANGE OWNER"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/changestate"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/scan_barcode2"
+        android:layout_alignStart="@+id/scan_barcode2"
+        android:layout_marginBottom="51dp" />
+
+    <Button
+        android:text="Chane State"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/chown"
+        android:textAlignment="center"
+        android:layout_alignBaseline="@+id/create"
+        android:layout_alignBottom="@+id/create"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
