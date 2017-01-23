@@ -12,4 +12,7 @@ The transparency of the whole supply-chain ensures the authenticity of products.
 
 5. At any point in the lifecycle, anyone with the barcode can view all the previous records.
 
+#Android Screenshots
+![Image 1](https://github.com/aditya0711/PirateCon3/blob/master/84878ca9-ffa6-45cd-a446-d2b86fd9bd7a.jpg "Logo Title Text 1")
 
+![Image 2](https://github.com/aditya0711/PirateCon3/blob/master/0939e762-e1cf-404b-8cc0-0bab0e0e8429.jpg "Logo Title Text 1")
